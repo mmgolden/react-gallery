@@ -1,4 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Gallery
+
+This image gallery app was created using React. Using React Router, routes are set up for three default topic pages and a search page. Images are displayed from the Flickr API using Axios to fetch data. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). This project was created for the purpose of the Treehouse Full Stack JavaScript Techdegree.
+
+## Project Requirements
+
+This project is reviewed and graded based on a set of requirements.
+
+### Meets Expectations
+
+* No warnings or errors in console about unused/missing assets.
+* Running npm start successfully launches the app.
+* App is broken up into components.
+* Provided CSS is used and the important aspects of the app generally resemble the mockups.
+* React Router properly implemented.
+* URLs correctly match routes.
+* URLs correctly match routes.
+* Uses Flickr API correctly: API Keys and proper Photo source URLs.
+* Data fetched from a "container" component that passes data down to presentation component via props.
+* No console errors or warnings regarding unique "key" props.
+* Key props passed to images.
+* Submitting search data returns & displays results.
+
+### Exceeds Expectations
+
+* App includes a 404-like error route that displays when a URL path does not match an existing route.
+* App displays a loading indicator each time the app fetches new data on at least the search route.
+* If no matches are found by the search, the app includes a message to tell the user there are no matches.
+
+## Using the App
+
+### Get a Flickr API key
+
+* Create yahoo account/use tumblr account to sign in
+* Apply for a [non-commercial API key](https://www.flickr.com/services/apps/create/apply/)
+* You’ll need to set up a config.js file in the src/components/ folder
+* The config.js file should look something like this:
+```
+const apiKey = 'YOUR API KEY';
+export default apiKey;
+```
 
 ## Available Scripts
 
