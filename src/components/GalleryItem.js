@@ -1,9 +1,16 @@
 import React from 'react';
 
-const GalleryItem = () => (
-    <li>
-        <img src="https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg" alt="" />
-    </li>
-);
+const GalleryItem = props => {
+
+    // Get the props
+    const {farmID, serverID, id, secret, title} = props;
+
+    // Return a list item with an image
+    return (
+        <li>
+            <img src={`https://farm${farmID}.staticflickr.com/${serverID}/${id}_${secret}.jpg`} alt={title} />
+        </li>
+    );
+};
 
 export default GalleryItem;
