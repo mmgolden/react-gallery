@@ -1,9 +1,9 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
-import NotFound from './NotFound';
 
 const Gallery = props => {
 
+    // Get the photos from props
     const photos = props.data.map(photo => 
         <GalleryItem 
             farmID={photo.farm} 

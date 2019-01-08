@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import apiKey from './config';
+
+// Components
 import Header from './Header';
 import Gallery from './Gallery';
+import NotFound from './NotFound';
 
 class App extends Component {
 
@@ -12,14 +16,15 @@ class App extends Component {
     };
 
     componentDidMount() {
+        this.search();
+    }
+
+    search = (query = 'beaches') => {
         // Flickr API Key
         const key = apiKey;
 
-        // Flickr tag
-        const tag = 'dog';
-
         // Fetch the data from Flickr
-        axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${tag}&per_page=24&format=json&nojsoncallback=1`)
+        axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
             this.setState({
                 photos: response.data.photos.photo
@@ -33,8 +38,13 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <Header />
-                <Gallery data={this.state.photos} />
+                <Header search={this.search} />
+                {/* Routes */}
+                <Switch>
+                    <Route exact path="/" render={ () => <Gallery data={this.state.photos} /> } />
+                    <Route path="/search/:query" render={ () => <Gallery data={this.state.photos} /> } />
+                    <Route component={NotFound} />
+                </Switch>    
             </div>
         );
     }
