@@ -8,17 +8,18 @@ class SearchForm extends Component {
     }
 
     // Update state based on the search query  
-    addQuery = e => {
+    handleChange = e => {
         this.setState({
             query: e.target.value
         });
     }
 
-    // When the form is submitted, call the search() method
+    // When the form is submitted
     handleSubmit = e => {
         e.preventDefault();
-        this.props.search(this.query.value);
+        this.props.search(this.state.query);
         e.currentTarget.reset();
+        this.props.history.push(`/search/${this.state.query}`);
     }
 
     render() {
@@ -29,7 +30,7 @@ class SearchForm extends Component {
                     placeholder="Search"
                     name="search" 
                     required
-                    onChange={this.addQuery}
+                    onChange={this.handleChange}
                     ref={ (input) => this.query = input }
                 />
                 <button type="submit" className="search-button">

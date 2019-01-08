@@ -12,9 +12,11 @@ class App extends Component {
 
     // State
     state = {
-        photos: []
+        photos: [],
+        title: 'Beaches'
     };
 
+    // Runs immediately after the App component is mounted
     componentDidMount() {
         this.search();
     }
@@ -27,7 +29,8 @@ class App extends Component {
         axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
             this.setState({
-                photos: response.data.photos.photo
+                photos: response.data.photos.photo,
+                title: query.toUpperCase()
             });
         })
         .catch(error => {
@@ -41,8 +44,9 @@ class App extends Component {
                 <Header search={this.search} />
                 {/* Routes */}
                 <Switch>
-                    <Route exact path="/" render={ () => <Gallery data={this.state.photos} /> } />
-                    <Route path="/search/:query" render={ () => <Gallery data={this.state.photos} /> } />
+                    <Route exact path="/" render={ () => <Gallery data={this.state.photos} title={this.state.title} /> } />
+                    <Route path="/search" render={ () => <Gallery data={this.state.photos} title={this.state.title} /> } />
+                    <Route path="/search/:query" render={ () => <Gallery data={this.state.photos} title={this.state.title} /> } />
                     <Route component={NotFound} />
                 </Switch>    
             </div>
