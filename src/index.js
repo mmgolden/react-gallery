@@ -1,14 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './components/App';
+import Router from './components/Router';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>, 
+    <Router />, 
     document.getElementById('root')
 );
 

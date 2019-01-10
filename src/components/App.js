@@ -6,7 +6,7 @@ import apiKey from './config';
 // Components
 import Header from './Header';
 import Gallery from './Gallery';
-import NotFound from './NotFound';
+import NoResults from './NoResults';
 
 class App extends Component {
 
@@ -93,13 +93,13 @@ class App extends Component {
                 <Header search={this.handleSearch} />
                 {/* Routes */}
                 <Switch>
-                    <Route exact path="/" render={ () => <Gallery data={this.state.searchPhotos} title={this.state.title} /> } />
+                    <Route exact path="/" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
                     <Route exact path="/search/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
                     <Route exact path="/search/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
                     <Route exact path="/search/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
                     <Route path="/search/:query" render={ () => <Gallery data={this.state.searchPhotos} title={this.state.title} /> } />
-                    <Route component={NotFound} />
-                </Switch>    
+                    <Route component={NoResults} />
+                </Switch>
             </div>
         );
     }
