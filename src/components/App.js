@@ -6,6 +6,7 @@ import apiKey from './config';
 // Components
 import Header from './Header';
 import Gallery from './Gallery';
+import Loading from './Loading';
 import NoResults from './NoResults';
 
 class App extends Component {
@@ -63,6 +64,16 @@ class App extends Component {
     }
 
     render() {
+
+        let componentToRender;
+        if (this.state.loading) {
+            componentToRender = <Loading />;
+        } else if (!this.state.showResults) {
+            componentToRender = <NoResults />;
+        } else {
+            componentToRender = <Gallery data={this.state.searchPhotos} title={this.state.title} />;
+        }
+
         return (
             <div className="container">
                 <Header search={this.handleSearch} />
@@ -72,7 +83,7 @@ class App extends Component {
                     <Route exact path="/search/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
                     <Route exact path="/search/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
                     <Route exact path="/search/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
-                    <Route path="/search/:query" render={ () => this.state.showResults ? <Gallery data={this.state.searchPhotos} title={this.state.title} /> : <NoResults /> } />
+                    <Route path="/search/:query" render={ () => componentToRender } />
                 </Switch>
             </div>
         );
