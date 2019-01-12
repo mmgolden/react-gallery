@@ -81,9 +81,9 @@ class App extends Component {
                     {/* Routes */}
                     <Switch>
                         <Route exact path="/" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
-                        <Route exact path="/search/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
-                        <Route exact path="/search/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
-                        <Route exact path="/search/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
+                        <Route path="/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
+                        <Route path="/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
+                        <Route path="/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
                         <Route path="/search/:query" render={ () => componentToRender } />
                     </Switch>
                 </div>
