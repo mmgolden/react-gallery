@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import SearchForm from './SearchForm';
 import Navigation from './Navigation';
 
 const Header = props => (
-    <Fragment>
+    <header>
         <SearchForm search={props.search} />
         <Navigation />
-    </Fragment>
+    </header>
 );
 
 export default Header;

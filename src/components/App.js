@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import apiKey from './config';
@@ -75,17 +75,19 @@ class App extends Component {
         }
 
         return (
-            <div className="container">
+            <Fragment>
                 <Header search={this.handleSearch} />
-                {/* Routes */}
-                <Switch>
-                    <Route exact path="/" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
-                    <Route exact path="/search/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
-                    <Route exact path="/search/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
-                    <Route exact path="/search/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
-                    <Route path="/search/:query" render={ () => componentToRender } />
-                </Switch>
-            </div>
+                <div className="container">
+                    {/* Routes */}
+                    <Switch>
+                        <Route exact path="/" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
+                        <Route exact path="/search/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
+                        <Route exact path="/search/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
+                        <Route exact path="/search/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
+                        <Route path="/search/:query" render={ () => componentToRender } />
+                    </Switch>
+                </div>
+            </Fragment>
         );
     }
 }
