@@ -14,7 +14,7 @@ This project is reviewed and graded based on a set of requirements.
 * Provided CSS is used and the important aspects of the app generally resemble the mockups.
 * React Router properly implemented.
 * URLs correctly match routes.
-* URLs correctly match routes.
+* Clicking a nav link navigates user to new route and loads new data.
 * Uses Flickr API correctly: API Keys and proper Photo source URLs.
 * Data fetched from a "container" component that passes data down to presentation component via props.
 * No console errors or warnings regarding unique "key" props.
