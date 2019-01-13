@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import apiKey from './config';
 
@@ -15,7 +15,7 @@ class App extends Component {
     // State
     state = {
         query: '',
-        showResults: true,
+        showResults: false,
         loading: false,
         searchPhotos: [],
         beachPhotos: [],
@@ -49,16 +49,17 @@ class App extends Component {
 
     // Get photos from search
     handleSearch = (query) => {
-        // Initially set loading to true
+        // Initial state
         this.setState({
-            loading: true
+            query,
+            showResults: false,
+            loading: true    
         });
         // If there is a query, fetch the data from Flickr
         if (query) {
             axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.key}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
             .then(response => {
                 this.setState({
-                    query: query,
                     showResults: response.data.photos.photo.length > 0,
                     loading: false,
                     searchPhotos: response.data.photos.photo
@@ -72,6 +73,7 @@ class App extends Component {
 
     render() {
 
+        // Component to render based on search results
         let componentToRender;
         if (this.state.loading) {
             componentToRender = <Loading />;
@@ -88,14 +90,7 @@ class App extends Component {
                     <Route 
                         exact 
                         path="/" 
-                        render={ () => 
-                            <Fragment>
-                                <Header search={this.handleSearch} />
-                                <div className="container">
-                                    <Gallery data={this.state.beachPhotos} title="Beaches" /> 
-                                </div>
-                            </Fragment>
-                        } 
+                        render={ () => <Redirect to="/beaches" /> } 
                     />
                     {/* Handle '/beaches' route */}
                     <Route 
@@ -136,10 +131,10 @@ class App extends Component {
                             </Fragment>
                         } 
                     />
-                    {/* Handle '/search/:query' route */}
+                    {/* Handle '/search/query' route */}
                     <Route 
                         exact
-                        path={`/search/:${this.state.query}`}
+                        path={`/search/${this.state.query}`}
                         render={ () => 
                             <Fragment>
                                 <Header search={this.handleSearch} />

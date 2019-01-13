@@ -80,6 +80,10 @@ input {
   border-bottom: 2px solid #eb0894;
 }
 
+.photo-container {
+  padding-top: 40px;
+}
+
 .photo-container ul {
   display: flex;
   flex-flow: row wrap;
@@ -110,8 +114,11 @@ input {
   padding: 30px 15px;
 }
 
-.loading h1 {
-  font-size: 1.5em;
+.ui.dimmer,
+.ui.segment {
+  margin-top: 60px;
+  background-color: transparent;
+  border: none;
 }
 
 .no-results {

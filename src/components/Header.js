@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchForm from './SearchForm';
 import Navigation from './Navigation';
+import PropTypes from 'prop-types';
 
 const Header = props => (
     <header>
@@ -8,5 +9,9 @@ const Header = props => (
         <Navigation />
     </header>
 );
+
+Header.propTypes = {
+    search: PropTypes.func
+};
 
 export default Header;

@@ -1,5 +1,6 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
+import PropTypes from 'prop-types';
 
 const Gallery = props => {
 
@@ -24,6 +25,11 @@ const Gallery = props => {
             </ul>
         </div>
     );
+};
+
+Gallery.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object),
+    title: PropTypes.string
 };
 
 export default Gallery;
