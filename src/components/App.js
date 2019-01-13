@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import apiKey from './config';
 
@@ -8,14 +8,15 @@ import Header from './Header';
 import Gallery from './Gallery';
 import Loading from './Loading';
 import NoResults from './NoResults';
+import NotFound from './NotFound';
 
 class App extends Component {
 
     // State
     state = {
-        title: '',
+        query: '',
         showResults: true,
-        loading: true,
+        loading: false,
         searchPhotos: [],
         beachPhotos: [],
         mountainPhotos: [],
@@ -47,20 +48,26 @@ class App extends Component {
     }
 
     // Get photos from search
-    handleSearch = (query = 'beaches') => {
-        // Fetch the data from Flickr
-        axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.key}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
-        .then(response => {
-            this.setState({
-                title: query,
-                showResults: response.data.photos.photo.length > 0,
-                loading: false,
-                searchPhotos: response.data.photos.photo
-            });
-        })
-        .catch(error => {
-            console.log(error);
+    handleSearch = (query) => {
+        // Initially set loading to true
+        this.setState({
+            loading: true
         });
+        // If there is a query, fetch the data from Flickr
+        if (query) {
+            axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.key}&tags=${query}&sort=relevance&per_page=24&format=json&nojsoncallback=1`)
+            .then(response => {
+                this.setState({
+                    query: query,
+                    showResults: response.data.photos.photo.length > 0,
+                    loading: false,
+                    searchPhotos: response.data.photos.photo
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
     }
 
     render() {
@@ -71,23 +78,87 @@ class App extends Component {
         } else if (!this.state.showResults) {
             componentToRender = <NoResults />;
         } else {
-            componentToRender = <Gallery data={this.state.searchPhotos} title={this.state.title} />;
+            componentToRender = <Gallery data={this.state.searchPhotos} title={this.state.query} />;
         }
 
         return (
-            <Fragment>
-                <Header search={this.handleSearch} />
-                <div className="container">
-                    {/* Routes */}
-                    <Switch>
-                        <Route exact path="/" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
-                        <Route path="/beaches" render={ () => <Gallery data={this.state.beachPhotos} title="Beaches" /> } />
-                        <Route path="/mountains" render={ () => <Gallery data={this.state.mountainPhotos} title="Mountains" /> } />
-                        <Route path="/lakes" render={ () => <Gallery data={this.state.lakePhotos} title="Lakes" /> } />
-                        <Route path="/search/:query" render={ () => componentToRender } />
-                    </Switch>
-                </div>
-            </Fragment>
+            <BrowserRouter>
+                <Switch>
+                    {/* Handle '/' route */}
+                    <Route 
+                        exact 
+                        path="/" 
+                        render={ () => 
+                            <Fragment>
+                                <Header search={this.handleSearch} />
+                                <div className="container">
+                                    <Gallery data={this.state.beachPhotos} title="Beaches" /> 
+                                </div>
+                            </Fragment>
+                        } 
+                    />
+                    {/* Handle '/beaches' route */}
+                    <Route 
+                        exact
+                        path="/beaches" 
+                        render={ () => 
+                            <Fragment>
+                                <Header search={this.handleSearch} />
+                                <div className="container">
+                                    <Gallery data={this.state.beachPhotos} title="Beaches" /> 
+                                </div>
+                            </Fragment>
+                        } 
+                    />
+                    {/* Handle '/mountains' route */}
+                    <Route 
+                        exact
+                        path="/mountains" 
+                        render={ () => 
+                            <Fragment>
+                                <Header search={this.handleSearch} />
+                                <div className="container">
+                                    <Gallery data={this.state.mountainPhotos} title="Mountains" /> 
+                                </div>
+                            </Fragment>
+                        } 
+                    />
+                    {/* Handle '/lakes' route */}
+                    <Route 
+                        exact
+                        path="/lakes" 
+                        render={ () => 
+                            <Fragment>
+                                <Header search={this.handleSearch} />
+                                <div className="container">
+                                    <Gallery data={this.state.lakePhotos} title="Lakes" />
+                                </div> 
+                            </Fragment>
+                        } 
+                    />
+                    {/* Handle '/search/:query' route */}
+                    <Route 
+                        exact
+                        path={`/search/:${this.state.query}`}
+                        render={ () => 
+                            <Fragment>
+                                <Header search={this.handleSearch} />
+                                <div className="container">
+                                    {componentToRender}
+                                </div>
+                            </Fragment>
+                        } 
+                    />
+                    {/* Handle '/search' route */}
+                    <Route 
+                        exact
+                        path="/search"
+                        render={ () => <Header search={this.handleSearch} /> } 
+                    />
+                    {/* Handle 404 error */}
+                    <Route component={NotFound} />
+                </Switch>
+            </BrowserRouter>
         );
     }
 }
