@@ -8,6 +8,7 @@
 
 # production
 /build
+/build-functions
 
 # misc
 .DS_Store
@@ -21,3 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+.netlify

@@ -1,0 +1,15 @@
+[Settings]
+
+# Settings in the [build] context are global and are applied to all contexts 
+# unless otherwise overridden by more specific contexts.
+[build]
+  public = "build"
+  command = "npm run build"
+  functions = "build-functions"
+
+# The following redirect is intended for use with most SPAs that handle
+# routing internally.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
