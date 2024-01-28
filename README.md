@@ -1,7 +1,5 @@
 # React Gallery
 
-View demo [here](https://mmgolden-react-gallery.netlify.com/beaches).
-
 This image gallery app was created using React. Using React Router, routes are set up for three default topic pages and a search page. Images are displayed from the Flickr API using Axios to fetch data. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). This project was created for the purpose of the Treehouse Full Stack JavaScript Techdegree.
 
 ## Project Requirements
